@@ -55,6 +55,8 @@ python3 -m venv /opt/otree_manager/venv
 
 # activate venv and install requirements
 source /opt/otree_manager/venv/bin/activate
+pip install --upgrade pip
+pip install wheel setuptools
 pip install -r /opt/otree_manager/requirements.txt
 
 # copy supervisor and nginx configs
