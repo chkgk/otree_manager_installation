@@ -26,6 +26,8 @@ echo "deb https://packagecloud.io/dokku/dokku/ubuntu/ ${OS_ID} main" | tee /etc/
 apt update 
 apt install -y dokku
 dokku plugin:install-dependencies --core
+
+# install dokku plugins
 dokku plugin:install https://github.com/dokku-community/dokku-acl.git acl
 dokku plugin:install https://github.com/dokku/dokku-postgres.git postgres
 dokku plugin:install https://github.com/dokku/dokku-redis.git redis
