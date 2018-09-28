@@ -70,7 +70,7 @@ pip install wheel setuptools
 pip install -r /opt/otree_manager/requirements.txt
 
 # update config files
-sed -i "/    POSTGRES_PWD=\"nopasswordset\"/c\    POSTGRES_PWD=\"${POSTGRES_PWD}\"" /opt/otree_manager/conf/supervisor.conf
+sed -i "/    POSTGRES_PWD=\"passwordnotset\"/c\    POSTGRES_PWD=\"${POSTGRES_PWD}\"" /opt/otree_manager/conf/supervisor.conf
 
 # copy supervisor and nginx configs into place
 cp /opt/otree_manager/conf/supervisor.conf /etc/supervisor/conf.d/otree_manager.conf
