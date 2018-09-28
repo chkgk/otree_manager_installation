@@ -2,14 +2,16 @@
 
 # Combined installation script
 
+# get hostname
 HOSTNAME="$(hostname)"
 
-# generate a key file if it does not exist
+# random password for postgres. 
+POSTGRES_PWD="$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;)"
 
+# generate a key file if it does not exist
 if [ ! -f /root/.ssh/id_rsa.pub ]; then
 	ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -P ""
 fi
-
 
 # install docker
 wget -nv -O - https://get.docker.com/ | sh
@@ -41,6 +43,14 @@ dokku plugin:install https://github.com/dokku-community/dokku-acl.git acl
 dokku plugin:install https://github.com/dokku/dokku-postgres.git postgres
 dokku plugin:install https://github.com/dokku/dokku-redis.git redis
 
+# create postgres database
+sudo -u postgres psql -c "CREATE DATABASE otree_manager;"
+sudo -u postgres psql -c "CREATE USER otree_manager_user WITH PASSWORD '${POSTGRES_PWD}';"
+sudo -u postgres psql -c "ALTER ROLE otree_manager_user SET client_encoding TO 'utf8';"
+sudo -u postgres psql -c "ALTER ROLE otree_manager_user SET default_transaction_isolation TO 'read committed';"
+sudo -u postgres psql -c "ALTER ROLE otree_manager_user SET timezone TO 'UTC';"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE otree_manager TO otree_manager_user;"
+
 
 # config smtp server send only, accept local connections
 sed -i '/inet_interfaces = all/c\inet_interfaces = localhost' /etc/postfix/main.cf
@@ -59,7 +69,10 @@ pip install --upgrade pip
 pip install wheel setuptools
 pip install -r /opt/otree_manager/requirements.txt
 
-# copy supervisor and nginx configs
+# update config files
+sed -i "/    POSTGRES_PWD=\"nopasswordset\"/c\    POSTGRES_PWD=\"${POSTGRES_PWD}\"" /opt/otree_manager/conf/supervisor.conf
+
+# copy supervisor and nginx configs into place
 cp /opt/otree_manager/conf/supervisor.conf /etc/supervisor/conf.d/otree_manager.conf
 cp /opt/otree_manager/conf/nginx.conf /etc/nginx/conf.d/00_otree_manager.conf
 rm /etc/nginx/sites-enabled/default
