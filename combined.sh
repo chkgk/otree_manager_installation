@@ -77,6 +77,10 @@ cp /opt/otree_manager/conf/supervisor.conf /etc/supervisor/conf.d/otree_manager.
 cp /opt/otree_manager/conf/nginx.conf /etc/nginx/conf.d/00_otree_manager.conf
 rm /etc/nginx/sites-enabled/default
 
+# final steps
+python /opt/otree_manager/otree_manager/manage.py collectstatic
+python /opt/otree_manager/otree_manager/manage.py migrate
+
 #restart services
 service nginx restart
 service supervisor restart
