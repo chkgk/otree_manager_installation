@@ -64,6 +64,7 @@ python3 -m venv /opt/otree_manager/venv
 
 # activate venv and install requirements
 source /opt/otree_manager/venv/bin/activate
+export POSTGRES_PWD="${POSTGRES_PWD}"
 pip install --upgrade pip
 pip install wheel setuptools
 pip install -r /opt/otree_manager/requirements.txt
