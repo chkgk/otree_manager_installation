@@ -51,7 +51,6 @@ sudo -u postgres psql -c "ALTER ROLE otree_manager_user SET default_transaction_
 sudo -u postgres psql -c "ALTER ROLE otree_manager_user SET timezone TO 'UTC';"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE otree_manager TO otree_manager_user;"
 
-
 # config smtp server send only, accept local connections
 sed -i '/inet_interfaces = all/c\inet_interfaces = localhost' /etc/postfix/main.cf
 postfix reload
@@ -81,8 +80,10 @@ rm /etc/nginx/sites-enabled/default
 python /opt/otree_manager/otree_manager/manage.py collectstatic
 python /opt/otree_manager/otree_manager/manage.py migrate
 
-#restart services
+# setup root user
+echo "You will now create the first super-user account for oTree Manager."
+python /opt/otree_manager/otree_manager/manage.py createsuperuser
+
+# restart services
 service nginx restart
 service supervisor restart
-
-
