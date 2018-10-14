@@ -86,8 +86,8 @@ main() {
     python /opt/otree_manager/otree_manager/manage.py createsuperuser
 
     # restart services
-    service nginx restart
-    service supervisor restart
+    service nginx reload
+    service supervisor reload
 }
 
 main "$@"
