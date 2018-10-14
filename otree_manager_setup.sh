@@ -85,9 +85,8 @@ main() {
     echo "You will now create the first super-user account for oTree Manager."
     python /opt/otree_manager/otree_manager/manage.py createsuperuser
 
-    # restart services
-    service nginx reload
-    service supervisor reload
 }
 
 main "$@"
+service nginx reload
+service supervisor reload
