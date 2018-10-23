@@ -1,5 +1,8 @@
 # oTree Manager installation scripts
 
+This repository contains script(s) to automate the installation of oTree Manager. To learn more about oTree Manager, please head over to <http://docs.otree-manager.com> or take a look at the source code at <https://github.com/chkgk/otree_manager>.
+
+
 To install oTree Manager clone this repository to a machine running a fresh Debian 9 installation. Then, run the setup script with super user privileges. 
 
 Installation from this repository (requires Git to be installed):
