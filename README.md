@@ -9,10 +9,10 @@ Note: The installation script is specifically written for Debian 9.
 
 Installation from this repository (skip the first two lines if git is installed already):
 ```bash
-$ apt update
-$ apt install git
-$ git clone https://github.com/chkgk/otree_manager_setup.git
-$ cd otree_manager_setup
+$ sudo apt update
+$ sudo apt install git
+$ git clone https://github.com/otree-manager/otree_manager_installation.git
+$ cd otree_manager_installation
 $ sudo bash ./otree_manager_setup.sh
 ``` 
 
