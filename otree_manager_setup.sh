@@ -34,7 +34,7 @@ main() {
     debconf-set-selections <<< "dokku dokku/key_file string /root/.ssh/id_rsa.pub"
 
     # add dokku repository to apt package manager, then trigger an update
-    wget -nv -O - https://packagecloud.io/gpg.key | apt-key add -
+    wget -nv -O - https://packagecloud.io/dokku/dokku/gpgkey | apt-key add -
     OS_ID="$(lsb_release -cs 2> /dev/null || echo "trusty")"
     echo "trusty utopic vivid wily xenial yakkety zesty artful bionic" | grep -q "$OS_ID" || OS_ID="trusty"
     echo "deb https://packagecloud.io/dokku/dokku/ubuntu/ ${OS_ID} main" | tee /etc/apt/sources.list.d/dokku.list
