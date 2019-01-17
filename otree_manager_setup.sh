@@ -32,6 +32,7 @@ main() {
     debconf-set-selections <<< "dokku dokku/hostname string ${HOSTNAME}"
     debconf-set-selections <<< "dokku dokku/skip_key_file boolean true"
     debconf-set-selections <<< "dokku dokku/key_file string /root/.ssh/id_rsa.pub"
+    debconf-set-selections <<< "dokku dokku/nginx_enable boolean true"
 
     # add dokku repository to apt package manager, then trigger an update
     wget -nv -O - https://packagecloud.io/dokku/dokku/gpgkey | apt-key add -
