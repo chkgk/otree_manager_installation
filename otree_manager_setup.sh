@@ -42,7 +42,7 @@ main() {
     apt update 
 
     # install dependencies
-    apt install -y apt-transport-https postfix redis-server postgresql python3 python3-pip python3-dev python3-venv nginx supervisor dokku
+    apt install -y apt-transport-https postfix redis-server postgresql python3 python3-pip python3-dev python3-venv nginx supervisor dokku openssh-server
 
     # install dokku plugins
     # dokku-acl provides user access management
