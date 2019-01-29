@@ -97,8 +97,10 @@ main() {
 
     # final steps
     # first, collect static files from oTree Manager, then apply migrations to make sure the database is initialized
+    # finally, load placeholder texts for privacy and imprint pages
     python /opt/otree_manager/otree_manager/manage.py collectstatic
     python /opt/otree_manager/otree_manager/manage.py migrate
+    python /opt/otree_manager/otree_manager/manage.py loaddata /opt/otree_manager/otree_manager/otree_manager/om/fixtures/flatpages.json
 
     # setup root user
     # ask user for a superuser name and password to be used as the initial super-user account of oTree Manager.
