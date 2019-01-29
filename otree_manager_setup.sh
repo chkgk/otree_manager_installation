@@ -107,9 +107,11 @@ main() {
     echo "You will now create the first super-user account for oTree Manager."
     python /opt/otree_manager/otree_manager/manage.py createsuperuser
 
+    service nginx restart
+    service supervisor restart
+
+    echo "Installation of oTree Manager has completed. Please consider rebooting the machine."
 }
 
 main "$@"
 # after installation has completed, reload nginx and supervisor configuration files.
-service nginx reload
-service supervisor reload
