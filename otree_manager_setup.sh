@@ -4,7 +4,12 @@
 main() {
     # Get hostname
     # we need this to correctly configure postfix, which is used for sending mail
-    HOSTNAME="$(hostname)"
+    # HOSTNAME="$(hostname)"
+
+    # ask user for fully qualified domain name
+    echo "Please enter the fully qualiied domain name (FQDN) for oTree Manager."
+    echo "Typically, this is the URL it should be available under (e.g. omanager.example.com)"
+    read HOSTNAME
 
     # generate a random password for the PostgreSQL database.
     POSTGRES_PWD="$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;)"
@@ -87,6 +92,7 @@ main() {
     # oTree Manager is started on boot by supervisor. Here we write the randomly generated database password to
     # supervisor's configuration file so it can be provided as an environmental variable to oTree Manager
     sed -i "/    POSTGRES_PWD=\"passwordnotset\"/c\    POSTGRES_PWD=\"${POSTGRES_PWD}\"" /opt/otree_manager/conf/supervisor.conf
+    sed -i "/    DOMAIN=\"domainnotset\"/c\    DOMAIN=\"${HOSTNAME}\"" /opt/otree_manager/conf/supervisor.conf
 
     # copy supervisor and nginx configs into place
     # nginx serves as a reverse proxy to enable transport layer security to be used with http (https!)
