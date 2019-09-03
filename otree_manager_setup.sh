@@ -91,7 +91,7 @@ main() {
     # update config files
     # oTree Manager is started on boot by supervisor. Here we write the randomly generated database password to
     # supervisor's configuration file so it can be provided as an environmental variable to oTree Manager
-    sed -i "/    POSTGRES_PWD=\"passwordnotset\"/c\    POSTGRES_PWD=\"${POSTGRES_PWD}\"" /opt/otree_manager/conf/supervisor.conf
+    sed -i "/    POSTGRES_PWD=\"passwordnotset\",/c\    POSTGRES_PWD=\"${POSTGRES_PWD}\"," /opt/otree_manager/conf/supervisor.conf
     sed -i "/    DOMAIN=\"domainnotset\"/c\    DOMAIN=\"${HOSTNAME}\"" /opt/otree_manager/conf/supervisor.conf
 
     # copy supervisor and nginx configs into place
